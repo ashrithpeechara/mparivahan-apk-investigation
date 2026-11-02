@@ -83,3 +83,17 @@ No malicious functionality is concluded from metadata alone.
 ## 7. Next Investigation Stage
 
 Proceed with detailed AndroidManifest.xml analysis, including permission declarations, application components, exported status, intent filters and component relationships.
+
+## 8. Evidence Screenshots
+
+### 8.1 APK File Identification
+
+![APK File Identification](../screenshots/apk-analysis/MP-APK-001-file-identification.png)
+
+### 8.2 SHA-256 Verification
+
+![SHA-256 Verification](../screenshots/apk-analysis/MP-APK-002-sha256-verification.png)
+
+### 8.3 APK Metadata Extraction
+
+![APK Metadata](../screenshots/apk-analysis/MP-APK-003-aapt-metadata.png)
