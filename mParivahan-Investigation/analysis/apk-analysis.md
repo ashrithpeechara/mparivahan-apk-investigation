@@ -138,39 +138,13 @@ The embedded data file is a priority for subsequent payload reconstruction.
 
 The unusual archive entry names also warrant additional structural inspection before extraction.
 
-## 5. Updated Preliminary Assessment
+## 5. Preliminary Assessment
 
 The initial triage and archive inspection established the APK's package identity, cryptographic hash, application metadata and major internal components.
 
 The presence of a large embedded data file, multiple HTML interfaces and package-installation permission provides several leads for further static investigation.
 
 These observations do not independently establish malicious execution or successful payload installation.
-
-### 4.6 APK Signing Information
-
-APK signing information is important for establishing the application's signing identity and examining its integrity-related metadata.
-
-The investigation will examine:
-
-- APK signing certificate.
-- Certificate subject and issuer.
-- Certificate validity period.
-- Signature scheme information.
-- Signing certificate fingerprints.
-
-The presence or absence of `META-INF` files alone is not sufficient to determine whether an APK is signed, since newer APK signing schemes use a signing block outside the ordinary ZIP entries.
-
-**Investigation status:** Signing certificate analysis is pending.
-
-## 5. Preliminary Assessment
-
-The initial triage established the identity and basic technical characteristics of the supplied APK.
-
-The application requests package-installation and network-related permissions. These observations provide leads for subsequent manifest and code-level analysis.
-
-The package identifier, application label and main activity have been identified.
-
-No malicious functionality is concluded from metadata alone.
 
 ## 6. Limitations
 
