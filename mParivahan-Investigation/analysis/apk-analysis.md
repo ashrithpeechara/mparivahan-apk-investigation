@@ -72,24 +72,79 @@ The permission itself does not establish that another APK was successfully insta
 
 The network-related permissions will be examined further during code-level analysis to determine how the application uses network functionality.
 
-### 4.5 APK Internal Structure
+### 4.5 APK Archive Structure Inspection
 
-An Android APK is a ZIP-based package containing application code, resources, configuration information and potentially additional bundled files.
+The APK archive was inspected using the `unzip -l` command without extracting or modifying the original evidence.
 
-The following components are relevant to the investigation:
+The archive listing contained 107 entries, with a total uncompressed size of 8,308,358 bytes.
 
-| Component | Purpose |
-|---|---|
-| `AndroidManifest.xml` | Application metadata, permissions and component declarations |
-| `classes.dex` | Compiled Android application code |
-| `classes2.dex` and additional DEX files | Additional compiled application code, if present |
-| `res/` | Application resources |
-| `assets/` | Additional files bundled with the application |
-| `resources.arsc` | Compiled Android resource table |
-| `META-INF/` | May contain signature-related metadata associated with APK v1 signing |
-| `lib/` | Native libraries, if included |
+The following important components were identified:
 
-**Investigation status:** The internal archive listing has not yet been examined in this phase. The presence of these components in the supplied mParivahan APK must be verified through archive inspection.
+| Component | Observed size | Description |
+|---|---:|---|
+| `AndroidManifest.xml` | 10,630 bytes | Android application manifest |
+| `classes.dex` | 91,868 bytes | Compiled Android application code |
+| `resources.arsc` | 64,780 bytes | Compiled Android resource table |
+| `assets/dbliqgnjl.dat` | 7,909,701 bytes | Large embedded data file |
+| `assets/installer_ui.html` | 5,204 bytes | Bundled HTML resource |
+| `assets/main_ui.html` | 17,676 bytes | Bundled HTML resource |
+| `assets/up.html` | 14,979 bytes | Bundled HTML resource |
+
+The archive also contained Kotlin metadata files and compiled Android resources.
+
+#### Embedded Data File
+
+The file `assets/dbliqgnjl.dat` accounts for the majority of the archive's uncompressed contents.
+
+Its size makes it a priority for further investigation.
+
+Previous analysis associated this file with the embedded second-stage APK payload. Its extraction and decoding methodology will be documented separately in `payload-analysis.md`.
+
+#### HTML Resources
+
+Three HTML resources were identified under the `assets/` directory:
+
+- `installer_ui.html`
+- `main_ui.html`
+- `up.html`
+
+Their contents and relationships with the Android application will be examined during code and WebView analysis.
+
+#### Signing-Related Files
+
+The archive contained:
+
+- `META-INF/MANIFEST.MF`
+- `META-INF/KEY.SF`
+- `META-INF/KEY.RSA`
+
+These entries indicate the presence of signature-related metadata associated with the APK's JAR/v1 signing mechanism.
+
+Cryptographic signature verification and certificate inspection remain pending.
+
+#### Unusual Archive Entry Names
+
+Several ZIP entries contained unusual path structures, including leading slashes, repeated separators and filenames resembling Android package components.
+
+These entries require further examination to determine whether they represent malformed paths, deliberate obfuscation or other archive anomalies.
+
+No extraction or execution was performed during this inspection.
+
+### 4.6 Archive Inspection Assessment
+
+The archive inspection identified the application's primary compiled code, Android resources, HTML interfaces, signing-related files and a large embedded data file.
+
+The embedded data file is a priority for subsequent payload reconstruction.
+
+The unusual archive entry names also warrant additional structural inspection before extraction.
+
+## 5. Updated Preliminary Assessment
+
+The initial triage and archive inspection established the APK's package identity, cryptographic hash, application metadata and major internal components.
+
+The presence of a large embedded data file, multiple HTML interfaces and package-installation permission provides several leads for further static investigation.
+
+These observations do not independently establish malicious execution or successful payload installation.
 
 ### 4.6 APK Signing Information
 
@@ -152,3 +207,7 @@ The next stage will examine:
 ### 8.3 APK Metadata Extraction
 
 ![APK Metadata](../screenshots/apk-analysis/MP-APK-003-aapt-metadata.png)
+
+### 8.4 APK Archive Structure
+
+![APK Archive Structure](../screenshots/apk-analysis/MP-APK-004-archive-structure.png)
