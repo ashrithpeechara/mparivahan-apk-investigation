@@ -1,0 +1,26 @@
+indicator_id,indicator_type,value,stage,classification,confidence,evidence_source,notes
+IOC-001,SHA256,7aafca5e4619f67015899f26181aad2f2d3d29b4b92532b896e6300309103810,First-stage APK,Investigated artifact,High,APK identity analysis,Hash identifies the original investigated APK
+IOC-002,SHA256,53d51811ce4451f0573aa5a4d9b29be2b84546112d9764da29f7780a4d731f6d,Second-stage APK,Investigated artifact,High,Payload analysis,Hash identifies the recovered second-stage APK
+IOC-003,SHA256,3a32aa441a3ee65e9c74687f845481d7a44f5d7284de44b96977eb1b95c4b858,Second-stage DEX,Investigated artifact,High,DEX analysis,Hash identifies the recovered DEX file
+IOC-004,Package name,com.wehfejg.asdfhew,First-stage APK,Suspicious application identifier,High,Manifest analysis,Package identifier of the first-stage application
+IOC-005,Package name,com.messege.mp,Second-stage APK,Suspicious application identifier,High,Payload analysis,Package identifier of the recovered second-stage application
+IOC-006,File path,assets/dbliqgnjl.dat,First-stage APK,Embedded payload artifact,High,Payload analysis,Embedded encoded payload
+IOC-007,Domain,yeh-u-880f4-default-rtdb.firebaseio.com,Second-stage APK,Backend infrastructure requiring context,High,Firebase analysis,Firebase Realtime Database host referenced by application code; Firebase is a legitimate shared platform
+IOC-008,Firebase project ID,yeh-u-880f4,Second-stage APK,Backend configuration identifier,High,Firebase analysis,Project identifier associated with the recovered database host
+IOC-009,Firebase path,devices/{DeviceId},Second-stage APK,Device data path,High,Firebase and UPI analysis,Device-specific database record referenced by application code
+IOC-010,Firebase field,upiPin,Second-stage APK,Sensitive data field,High,UPI analysis,Field used in attempted PIN submission; actual storage not independently verified
+IOC-011,Firebase path,actions/{DeviceId}/sendSms,Second-stage APK,Remote command path,High,SMS analysis,Path used for SMS command retrieval and acknowledgement
+IOC-012,Firebase path,deviceMessages,Second-stage APK,Messaging-related data structure,Medium,Firebase analysis,Identified in recovered Firebase-related material
+IOC-013,Firebase path,notificationFeed,Second-stage APK,Notification-related data structure,Medium,Firebase analysis,Identified in recovered Firebase-related material
+IOC-014,Domain,api.telegram.org,Second-stage APK,Legitimate shared infrastructure,High,Telegram analysis,Telegram Bot API host; not malicious by itself
+IOC-015,API endpoint,/bot<TOKEN>/sendMessage,Second-stage APK,Messaging API operation,High,Telegram analysis,Endpoint template used by Telegram Bot API; actual token intentionally excluded
+IOC-016,Certificate SHA256,62:15:F0:0B:AA:4B:F1:8B:AB:57:92:FC:79:6B:FC:55:55:91:72:40:F1:4F:7C:7E:67:2D:95:68:88:D7:5C:96,Second-stage APK,Signing certificate fingerprint,High,APK identity analysis,Self-issued certificate fingerprint; signer identity unknown
+IOC-017,VPN IPv4 address,10.0.0.2,First-stage APK,Internal VPN configuration,High,VPN analysis,Virtual VPN interface address; not a public network IOC
+IOC-018,VPN IPv6 address,fd00::2,First-stage APK,Internal VPN configuration,High,VPN analysis,Unique-local IPv6 VPN interface address; not a public network IOC
+IOC-019,VPN DNS address,10.0.0.1,First-stage APK,Internal VPN configuration,High,VPN analysis,Configured DNS server address; reachability unverified
+IOC-020,Domain,www.google.com,Second-stage APK,Legitimate connectivity-check destination,High,NetworkUtil analysis,Used in DNS-resolution-based connectivity check; not malicious
+IOC-021,Application method,notifyTelegramIncomingSms,Second-stage APK,SMS notification functionality,High,Telegram analysis,Constructs Telegram notification containing incoming SMS-related information
+IOC-022,Application method,handleSendSmsCommand,Second-stage APK,Remote SMS command functionality,High,SMS analysis,Processes Firebase-provided SMS command data
+IOC-023,Application method,sendSmsWithRetry,Second-stage APK,SMS execution functionality,High,SMS analysis,Invokes SMS helper with retry handling
+IOC-024,Application class,com.wehfejg.asdfhew.VpnKillService,First-stage APK,VPN service component,High,VPN analysis,Android VpnService implementation
+IOC-025,Application class,d0,First-stage APK,VPN worker component,High,VPN analysis,Worker passes VPN file descriptor to service processing method
